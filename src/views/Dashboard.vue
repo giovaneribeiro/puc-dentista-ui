@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header title="painel de controle">
-      boas vindas, {{ user.name }}!
+      boas vindas, {{ user.nome }}!
     </Header>
   </div>
 </template>

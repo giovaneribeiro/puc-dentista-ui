@@ -4,7 +4,7 @@
       <v-row class="mt-6">
         <v-col class="primary text-center white--text login-padding">
           <div class="mb-8">
-            <div id="icon">1</div>
+            <div id="icon"></div>
           </div>
 
           <div class="my-8">
@@ -66,7 +66,7 @@ export default {
 
         const { email, password } = this
 
-        this.signIn({ email, password }).then(() => {
+        this.signIn({ usuario: email, senha: password }).then(() => {
           this.loading = false
           this.$router.push({ name: 'dashboard' })
         }).catch(error => {
@@ -88,7 +88,7 @@ export default {
     border-radius: 9999px;
   }
   .login-padding {
-    padding-top: 10%;
-    padding-bottom: 10%;
+    padding-top: 75px;
+    padding-bottom: 75px;
   }
 </style>

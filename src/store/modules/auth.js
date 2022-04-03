@@ -1,4 +1,4 @@
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   state: {
@@ -19,10 +19,8 @@ export default {
   },
   actions: {
     async signIn ({ dispatch }, user) {
-      // TODO: realizar chamada backend
-      // const response = await axios.post('https://rh-liax.herokuapp.com/rh/api/auth/api/login', user)
-      // await dispatch('attempt', response.data.token)
-      await dispatch('attempt', 'TOKEN')
+      const response = await axios.post('https://puc-dentista-api.herokuapp.com/api/usuario/login', user)
+      await dispatch('attempt', response.data.token)
     },
     async attempt ({ commit, state }, token) {
       if (token) {
@@ -34,10 +32,8 @@ export default {
       }
 
       try {
-        // TODO: realizar chamada backend
-        // const response = await axios.get('https://rh-liax.herokuapp.com/rh/api/auth/api/auth/getUserInfoByToken?token=' + token)
-        // commit('SET_USER', response.data)
-        commit('SET_USER', { name: 'Giovane Ribeiro', cnes: '12313-BA', permissions: ['NIVEL_2'] })
+        const response = await axios.get('https://puc-dentista-api.herokuapp.com/api/usuario/' + token)
+        commit('SET_USER', response.data)
       } catch (error) {
         commit('SET_TOKEN', null)
         commit('SET_USER', null)

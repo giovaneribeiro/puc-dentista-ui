@@ -9,8 +9,8 @@
             <v-icon dark class="primary">mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>{{ user.name }}</v-list-item-title>
-            <v-list-item-subtitle>cnes: {{ user.cnes }}</v-list-item-subtitle>
+            <v-list-item-title>{{ user.dentista }}</v-list-item-title>
+            <v-list-item-subtitle>cnes: {{ user.cpf || user.cnpj }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <template v-for="item in items">
