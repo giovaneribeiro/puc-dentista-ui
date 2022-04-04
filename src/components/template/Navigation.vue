@@ -4,12 +4,12 @@
       v-model="drawer" dark class="grey darken-2"
       :clipped="$vuetify.breakpoint.lgAndUp">
       <v-list>
-        <v-list-item :key="Usuario">
+        <v-list-item :key="1">
           <v-list-item-action>
             <v-icon dark class="primary">mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>{{ user.dentista }}</v-list-item-title>
+            <v-list-item-title class="text-lowercase">{{ user.dentista }}</v-list-item-title>
             <v-list-item-subtitle>cnes: {{ user.cpf || user.cnpj }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -55,6 +55,7 @@
       :clipped-left="$vuetify.breakpoint.lgAndUp">
       <v-app-bar-nav-icon color="white" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
+      <span class="text-lowercase">{{ user.nome }}</span>
       <v-menu bottom left v-if="isAuth">
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon class="white--text" v-bind="attrs" v-on="on">

@@ -2,7 +2,7 @@
   <div>
     <v-card flat>
       <v-card-title>
-        <h1>{{ title }}</h1>
+        <h2>{{ title }}</h2>
       </v-card-title>
       <v-card-text>
         <slot></slot>
