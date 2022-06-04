@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar top right absolute v-model="snackbar.visible"
+  <v-snackbar v-model="snackbar.visible"
     :color="snackbar.type"
     :multi-line="snackbar.multiline">
     {{ snackbar.message }}
