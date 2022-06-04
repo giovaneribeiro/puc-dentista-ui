@@ -58,7 +58,7 @@ export default {
     }
   }),
   methods: {
-    ...mapMutations(['showSnackbar', 'showError']),
+    ...mapMutations(['showError']),
     ...mapActions(['signIn']),
     login () {
       if (this.$refs.form.validate()) {

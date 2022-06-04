@@ -59,7 +59,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['showSnackbar', 'showError']),
+    ...mapMutations(['showError']),
     visualizar (item) {
       this.$router.push(`/tratamentos/${item.id}`)
     }

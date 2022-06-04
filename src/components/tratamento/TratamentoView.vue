@@ -56,18 +56,34 @@
       </v-card-text>
     </v-card>
     <v-card class="mt-6">
-      <v-card-title>adicionar comentário</v-card-title>
+      <v-card-title>comentários</v-card-title>
       <v-card-text>
-        <v-row>
+        <v-row v-if="tratamento.comentarios && tratamento.comentarios.length > 0">
           <v-col>
-            <v-textarea readonly hide-details
-              label="código tratamento"
-              v-model="tratamento.comentario"></v-textarea>
+            <v-timeline dense>
+              <v-timeline-item v-for="comentario in tratamento.comentarios" :key="comentario.id" small>
+                <v-row justify="space-between">
+                  <v-col cols="7" v-text="comentario.descricao"></v-col>
+                  <v-col cols="3" v-text="comentario.nomeUsuario"></v-col>
+                  <v-col class="text-right" cols="2">{{ comentario.criacao | moment('DD/MM/YYYY HH:mm:ss') }}</v-col>
+                </v-row>
+              </v-timeline-item>
+            </v-timeline>
           </v-col>
         </v-row>
-        <v-row>
+        <v-row v-else>
+          <v-col>Não há comentários neste tratamento.</v-col>
+        </v-row>
+        <v-row v-if="tratamento.status === 'EM_ANALISE'">
+          <v-col>
+            <v-textarea hide-details
+              label="adicionar comentário"
+              v-model="novoComentario"></v-textarea>
+          </v-col>
+        </v-row>
+        <v-row v-if="tratamento.status === 'EM_ANALISE'">
           <v-col class="text-right">
-            <v-btn class="primary">Adicionar</v-btn>
+            <v-btn class="primary" @click="adicionarComentario()">Adicionar</v-btn>
           </v-col>
         </v-row>
       </v-card-text>
@@ -93,6 +109,7 @@ export default {
     return {
       loading: true,
       tratamento: {},
+      novoComentario: null,
       eventos: [],
       headers: [
         { text: 'Código', value: 'id' },
@@ -105,7 +122,23 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['showSnackbar', 'showError'])
+    ...mapMutations(['showSnackbar', 'showError']),
+    adicionarComentario () {
+      if (this.novoComentario && this.novoComentario.trim()) {
+        const comentario = { descricao: this.novoComentario, codigoUsuario: this.user.idUsuario }
+
+        axios.post(`https://puc-dentista-api.herokuapp.com/api/tratamento/${this.$route.params.id}/comentario`, comentario).then(response => {
+          response.data.nomeUsuario = this.user.nome
+          this.tratamento.comentarios.push(response.data)
+          this.novoComentario = null
+          this.showSnackbar({ type: 'success', message: 'Comentário adicionado com sucesso.' })
+        }).catch(error => {
+          this.showError({ error, message: 'Não foi possível adicionar este comentário ao tratamento.' })
+        })
+      } else {
+        this.showSnackbar({ type: 'warning', message: 'Favor adicionar um comentário para enviar' })
+      }
+    }
   },
   computed: {
     ...mapGetters(['user'])
